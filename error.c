@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stddef.h>
+
 #include <SDL2/SDL.h>
 
 #include "error.h"
@@ -9,6 +11,16 @@
 void error(const char *msg)
 {
    fprintf(stderr, "%s\n", msg);
-   SDL_Quit();
    exit(1);
+}
+
+void *emalloc(size_t n)
+{
+	void *p;
+
+	p = malloc (n);
+	if (p == NULL) 
+		error("emalloc failed");
+
+	return p;
 }

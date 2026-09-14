@@ -1,14 +1,19 @@
-#include "error.h"
+#include "config.h"
+
 #include "iface.h"
 #include "boolean.h"
+#include "sprite.h"
 
 int main(int argc, char **argv)
 {
    SDL_Event e;
    
    boolean quit = FALSE;
+	sprite *s;
    
    IF_Create();
+	atexit(IF_Destroy);
+	s = SP_Create("assets/hero.png", WIDTH / 2, HEIGHT / 2);
 
    while (!quit) 
      {
@@ -27,9 +32,8 @@ int main(int argc, char **argv)
 	  }
 	
 	/* render the scene */
-	IF_Render(img, ren, 0, 0);
+	IF_Render(s);
      }
    
-   IF_Destroy();
    return 0;
 }

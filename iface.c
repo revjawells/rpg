@@ -1,49 +1,53 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
+#include "config.h"
 #include "iface.h"
 #include "error.h"
 
-static const int WIDTH = 320;
-static const int HEIGHT = 200;
+#include "sprite.h"
 
-static SDL_Window *win;
-
+SDL_Window *win;
 SDL_Renderer *ren;
-SDL_Texture *img;
-
-SDL_Texture *IF_Load(const char *file, SDL_Renderer *r)
-{
-   SDL_Texture *t;
-   
-   t = IMG_LoadTexture(r, file);
-
-   return t;
-}
 
 void IF_Create(void)
 {
+	/* initialize SDL and its components */
    VTRY(SDL_Init(SDL_INIT_EVERYTHING), 0);
+   VTRY((IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG), IMG_INIT_PNG);
 
-   SDL_CreateWindowAndRenderer(0, 0, SDL_WINDOW_FULLSCREEN_DESKTOP, &win, &ren);
+	/* create a window and renderer */
+   SDL_CreateWindowAndRenderer(WIDTH, HEIGHT, 0, &win, &ren);
+	SDL_SetRenderDrawColor(ren, 0xFF, 0xFF, 0xFF, 0xFF);
+
+/* remove these as we don't need fullscreen?
    SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
    SDL_RenderSetLogicalSize(ren, WIDTH, HEIGHT);
-   
-   VTRY((IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG), IMG_INIT_PNG);
-   
-   img = IF_Load("image.png", ren);
+*/
 }
 
 void IF_Destroy(void)
 {
-   SDL_DestroyTexture(img);
-   
    SDL_DestroyRenderer(ren);
    SDL_DestroyWindow(win);
 
+	IMG_Quit();
    SDL_Quit();
 }
 
+SDL_Texture *IF_Load(const char *file)
+{
+   SDL_Texture *t;
+   
+   t = IMG_LoadTexture(ren, file);
+	if (t == NULL) {
+		error(IMG_GetError());
+	}
+
+   return t;
+}
+
+/*
 void IF_Scale(SDL_Texture *t, SDL_Renderer *r, int x, int y, int w, int h)
 {
    SDL_Rect dest;
@@ -55,15 +59,12 @@ void IF_Scale(SDL_Texture *t, SDL_Renderer *r, int x, int y, int w, int h)
    
    SDL_RenderCopy(r, t, NULL, &dest);
 }
+*/
 
-void IF_Render(SDL_Texture *t, SDL_Renderer *r, int x, int y)
+void IF_Render(sprite *s)
 {
-   int w, h;
-
    SDL_RenderClear(ren);
-
-   SDL_QueryTexture(t, NULL, NULL, &w, &h);
-   IF_Scale(t, r, x, y, w, h);
+	SDL_RenderCopy(ren, s->t, NULL, s->pos);
 
    SDL_RenderPresent(ren);
 }

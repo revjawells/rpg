@@ -1,12 +1,10 @@
 CC = cc
 LIB = -lSDL2 -lSDL2_image
 
-# INCLUDE = -I/usr/local/include
-
-CFLAGS = -Wall -std=c99 $(INCLUDE)
+CFLAGS = -Wall -ansi -pedantic -std=c99
 LDFLAGS = $(LIB)
 
-OBJS = main.o error.o iface.o
+OBJS = main.o error.o iface.o sprite.o
 
 EXE = rpg
 
