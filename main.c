@@ -20,14 +20,37 @@ int main(int argc, char **argv)
 	/* get user input */
 	while (SDL_PollEvent(&e))
 	  {
-		switch (e.type) {
-			case SDL_QUIT:
-			case SDL_KEYDOWN:
-			case SDL_MOUSEBUTTONDOWN:
-				quit = TRUE;
-				break;
+		if (e.type == SDL_QUIT) {
+			quit = TRUE;
+		} else if (e.type == SDL_KEYDOWN) {
+			switch (e.key.keysym.sym) {
+					case DO_UP:
+						SP_Update(s, 0, -1);
+						break;
 
-			default: break;
+					case DO_DOWN:
+						SP_Update(s, 0, +1);
+						break;
+
+					case DO_LEFT:
+						SP_Update(s, -1, 0);
+						break;
+
+					case DO_RIGHT:
+						SP_Update(s, +1, 0);
+						break;
+
+					case DO_START:
+						SP_Move(s, WIDTH / 2, HEIGHT / 2);
+						break;
+
+					case DO_A:
+					case DO_B:
+					case DO_SELECT:
+						break;
+
+					default: break;
+			}
 		}
 	  }
 	

@@ -1,6 +1,8 @@
 #include <stdlib.h>
 #include <SDL2/SDL.h>
 
+#include "config.h"
+
 #include "iface.h"
 #include "sprite.h"
 #include "point.h"
@@ -25,10 +27,25 @@ sprite *SP_Create(const char *file, int x, int y)
 	return s;
 }
 
-void SP_Update(sprite *s, point *p)
+void SP_Update(sprite *s, int dx, int dy)
 {
-	s->pos->x = p->x;
-	s->pos->y = p->y;
+	int nx = s->pos->x + dx * s->pos->w;
+	int ny = s->pos->y + dy * s->pos->h;
+
+	if (nx >= 0 && nx < WIDTH
+		&& ny >= 0 && ny < HEIGHT) {
+		s->pos->x = nx;
+		s->pos->y = ny;
+	}
+}
+
+void SP_Move(sprite *s, int x, int y)
+{
+	if (x >= 0 && x < WIDTH
+		&& y >= 0 && y < HEIGHT) {
+		s->pos->x = x;
+		s->pos->y = y;
+	}
 }
 
 boolean SP_IsTouching(sprite *s, sprite *t)
