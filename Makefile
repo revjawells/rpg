@@ -19,4 +19,4 @@ tags:
 	ctags *.[ch]
 
 clean:
-	rm tags *.o *~ && rm $(EXE)
+	rm tags *.o *~ $(EXE)
