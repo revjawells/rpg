@@ -1,5 +1,9 @@
-#define WIDTH	800
-#define HEIGHT	600
+#define WIDTH		800
+#define HEIGHT		600
+
+#define SHEETSIZE	32
+#define TILESIZE	16
+#define MAPSIZE		32
 
 #define DO_UP		SDLK_w
 #define DO_DOWN		SDLK_s

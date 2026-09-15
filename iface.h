@@ -7,18 +7,13 @@
 #include "error.h"
 #include "sprite.h"
 
-extern SDL_Renderer *ren;
-extern SDL_Texture *img;
-
 extern void IF_Create(void);
 extern void IF_Destroy(void);
 
+extern void IF_Clear(void);
+extern void IF_Render(void);
+
 extern SDL_Texture *IF_Load(const char *);
-
-/*
-extern void IF_Scale(SDL_Texture *, SDL_Renderer *, int, int, int, int);
-*/
-
-extern void IF_Render(sprite *s);
+extern void IF_Draw(sprite *s, int, int);
 
 #endif

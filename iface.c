@@ -47,24 +47,34 @@ SDL_Texture *IF_Load(const char *file)
    return t;
 }
 
-/*
-void IF_Scale(SDL_Texture *t, SDL_Renderer *r, int x, int y, int w, int h)
+void IF_Clear(void)
 {
-   SDL_Rect dest;
-   
-   dest.x = x;
-   dest.y = y;
-   dest.h = h;
-   dest.w = w;
-   
-   SDL_RenderCopy(r, t, NULL, &dest);
+	SDL_RenderClear(ren);
 }
-*/
 
-void IF_Render(sprite *s)
+void IF_Render(void)
 {
-   SDL_RenderClear(ren);
-	SDL_RenderCopy(ren, s->t, NULL, s->pos);
+	SDL_RenderPresent(ren);
+}
 
-   SDL_RenderPresent(ren);
+void IF_Draw(sprite *s, int x, int y)
+{
+	/* don't actually draw, but add to a drawList */
+
+	static SDL_Rect src, dest;
+	int shrow, shcol;
+
+	shrow = s->tile / SHEETSIZE;
+	shcol = s->tile % SHEETSIZE;
+
+	src.w = src.h = TILESIZE; 
+	src.x = shcol * (TILESIZE + 1);
+	src.y = shrow * (TILESIZE + 1);
+
+	dest.w = TILESIZE;
+	dest.h = TILESIZE;
+	dest.x = x;
+	dest.y = y;
+
+	SDL_RenderCopy(ren, s->sh->t, &src, &dest);
 }

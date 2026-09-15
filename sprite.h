@@ -3,17 +3,17 @@
 
 #include "SDL2/SDL.h"
 
-#include "boolean.h"
+#include "sheet.h"
 
 typedef struct {
-	SDL_Texture *t;
-	SDL_Rect *pos;
+	sheet *sh;
+	int tile;
+
+	int x, y;
 } sprite;
 
-extern sprite *SP_Create(const char *, int, int);
-extern void SP_Update(sprite *, int, int);
-extern void SP_Move(sprite *, int, int);
+extern sprite *SP_Create(sheet *, int, int, int);
+extern void SP_Draw(sprite *);
 extern void SP_Destroy(sprite *);
-extern boolean SP_IsTouching(sprite *, sprite *);
 
 #endif /* SPRITE_H */
