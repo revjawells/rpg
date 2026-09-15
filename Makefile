@@ -4,7 +4,7 @@ LIB = -lSDL2 -lSDL2_image
 CFLAGS = -g -Wall -ansi -pedantic -std=c99
 LDFLAGS = $(LIB)
 
-OBJS = main.o error.o iface.o sprite.o sheet.o
+OBJS = main.o error.o iface.o sprite.o sheet.o 
 
 EXE = rpg
 
