@@ -1,7 +1,8 @@
 CC = cc
 LIB = -lSDL2 -lSDL2_image
 
-CFLAGS = -g -Wall -ansi -pedantic -std=c99
+DEBUG = -g
+CFLAGS = $(DEBUG) -Wall -ansi -pedantic -std=c99
 LDFLAGS = $(LIB)
 
 OBJS = main.o error.o iface.o sprite.o sheet.o 
