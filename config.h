@@ -1,6 +1,8 @@
 #define WIDTH		800
 #define HEIGHT		600
 
+#define BUFSIZE		256
+
 #define SHEETSIZE	32
 #define TILESIZE	16
 #define MAPSIZE		32

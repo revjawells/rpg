@@ -12,16 +12,15 @@ int main(int argc, char **argv)
 	SDL_Event e;
    
 	boolean quit = FALSE;
+
 	sheet *sprites;
-	sprite *sp;
+	map *hut;
 	sprite *hero;
    
 	IF_Create();
-	atexit(IF_Destroy);
 
 	sprites = SH_Create("assets/tiles.png", TILESIZE, TILESIZE);
-
-	sp = SP_Create(sprites, 0, 0, 0);
+	hut = MP_Create("hut.map", sprites);
 	hero = SP_Create(sprites, 25, 3, 3);
 
 	while (!quit) {
@@ -64,16 +63,7 @@ else if (e.type == SDL_KEYDOWN) {
 		/* draw the map */
 		IF_Clear();
 
-		for (int row = 0; row < MAPSIZE; row++) {
-			sp->x = row;
-
-			for (int col = 0; col < MAPSIZE; col++) {
-				sp->tile = map[col][row];		
-				sp->y = col;
-				SP_Draw(sp);
-			}
-		}
-
+		MP_Draw(hut);
 		SP_Draw(hero);
 
 		/* render the scene */
@@ -81,8 +71,9 @@ else if (e.type == SDL_KEYDOWN) {
 	} /* while running */
    
 	SP_Destroy(hero);
-	SP_Destroy(sp);
+	MP_Destroy(hut);
 	SH_Destroy(sprites);
+	IF_Destroy();
 
 	return 0;
 }
