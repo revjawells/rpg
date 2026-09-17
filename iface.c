@@ -68,13 +68,12 @@ void IF_Draw(sprite *s, int x, int y)
 	shcol = s->tile % SHEETSIZE;
 
 	src.w = src.h = TILESIZE; 
-	src.x = shcol * (TILESIZE + 1);
-	src.y = shrow * (TILESIZE + 1);
+	src.x = shcol * (TILESIZE + 2); // was TILESIZE + 1
+	src.y = shrow * (TILESIZE + 2);
 
-	dest.w = TILESIZE;
-	dest.h = TILESIZE;
-	dest.x = x;
-	dest.y = y;
+	dest.w = dest.h = TILESIZE; 
+	dest.x = x * TILESIZE;
+	dest.y = y * TILESIZE;
 
 	SDL_RenderCopy(ren, s->sh->t, &src, &dest);
 }

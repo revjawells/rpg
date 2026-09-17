@@ -24,7 +24,8 @@ sprite *SP_Create(sheet *sh, int tile, int x, int y)
 
 void SP_Draw(sprite *s)
 {
-	IF_Draw(s, s->x * TILESIZE, s->y * TILESIZE);
+	// was * TILESIZE for x and y
+	IF_Draw(s, s->x, s->y);
 }
 
 void SP_Destroy(sprite *s)

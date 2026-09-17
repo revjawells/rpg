@@ -4,7 +4,7 @@
 #define BUFSIZE		256
 
 #define SHEETSIZE	32
-#define TILESIZE	16
+#define TILESIZE	15
 #define MAPSIZE		32
 
 #define DO_UP		SDLK_w
