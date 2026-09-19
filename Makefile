@@ -5,7 +5,8 @@ DEBUG = -g
 CFLAGS = $(DEBUG) -Wall -ansi -pedantic -std=c99
 LDFLAGS = $(LIB)
 
-OBJS = main.o error.o iface.o sprite.o sheet.o map.o player.o
+OBJS = main.o error.o iface.o sprite.o sheet.o map.o player.o \
+		tiledata.c
 
 EXE = rpg
 

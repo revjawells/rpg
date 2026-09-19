@@ -10,6 +10,10 @@
 #include "config.h"
 #include "error.h"
 
+#include "tiledata.h"
+
+extern tiledata_ent tiledata[];
+
 player_t *PL_Create(sheet_t *sh, map_t *m)
 {
 	player_t *p = (player_t *) emalloc(sizeof(player_t));
@@ -33,16 +37,23 @@ boolean PL_Move(player_t *p, int dx, int dy)
 	int nx = p->x + dx;
 	int ny = p->y + dy;
 
-	if (MP_IsInBounds(p->map, nx, ny)) {
+	if (MP_IsInBounds(p->map, nx, ny)
+		&& tiledata[p->map->tiles[ny][nx]].flags == PASSABLE) {
 		p->x = nx;
 		p->y = ny;
+
+#ifdef DEBUG
+		int x = p->map->tiles[ny][nx];
+		printf("TILE #%d\t#%d\n", x, tiledata[x].tile);
+#endif
+
 		return TRUE;
 	}
 
 	return FALSE;
 }
 
-void PL_Handle(player_t *p, SDL_Event e)
+boolean PL_Handle(player_t *p, SDL_Event e)
 {
 	int result;
 
@@ -77,6 +88,8 @@ void PL_Handle(player_t *p, SDL_Event e)
 	if (!result) {
 		// BLOCKED
 	}
+
+	return result;
 }
 
 void PL_Draw(player_t *p)

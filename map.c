@@ -12,6 +12,10 @@
 #include "sheet.h"
 #include "sprite.h"
 
+#include "tiledata.h"
+
+extern const tiledata_ent tiledata[];
+
 /* not robust - add error checking */
 map_t *MP_Create(const char *file, sheet_t *sprites)
 {
@@ -79,30 +83,13 @@ void MP_Draw(map_t *m, int px, int py)
 			int j = sp->x + px - (WINSIZE / 2);
 
 			if (MP_IsInBounds(m, i, j)) {
-				sp->tile = m->tiles[i][j];
+				sp->tile = tiledata[m->tiles[i][j]].tile;
 				SP_Draw(sp);
 			} else {
 				// draw nothing
 			}
 		}
 	}
-	
-/*
-	for (int row = -WINSIZE / 2; row < WINSIZE / 2; row++) {
-		sp->x = row + px;
-
-		for (int col = -WINSIZE / 2; col < WINSIZE / 2; col++) {
-			sp->y = col + py;
-
-			if (MP_IsInBounds(m, sp->x, sp->y)) {
-				sp->tile = m->tiles[sp->y][sp->x];
-				SP_Draw(sp);
-			} else {
-				// draw nothing
-			}
-		}
-	}
-*/
 }
 
 boolean MP_IsInBounds(map_t *m, int x, int y)

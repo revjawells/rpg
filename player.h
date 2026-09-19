@@ -15,13 +15,23 @@ typedef struct {
 	map_t *map;
 
 	int x, y;
+
+	char *name;
+
+	int level;
+	int hp, hpmax;
+	int mp, mpmax;
+
+	int gold;
+	int xp;
+
 } player_t;
 
 extern player_t *PL_Create(sheet_t *, map_t *);
 extern void PL_Destroy(player_t *p);
 
 extern boolean PL_Move(player_t *, int, int);
-extern void PL_Handle(player_t *, SDL_Event);
+extern boolean PL_Handle(player_t *, SDL_Event);
 extern void PL_Draw(player_t *);
 
 #endif /* PLAYER_H */
