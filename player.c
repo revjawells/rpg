@@ -10,26 +10,25 @@
 #include "config.h"
 #include "error.h"
 
-player *PL_Create(sheet *sh, map *m)
+player_t *PL_Create(sheet_t *sh, map_t *m)
 {
-	player *p = (player *) emalloc(sizeof(player));
+	player_t *p = (player_t *) emalloc(sizeof(player_t));
 
-	p->sh = sh;
-	p->sp = SP_Create(sh, 25, 0, 0);
-
-	p->m = m;
+	p->sheet = sh;
+	p->map = m;
 
 	p->x = p->y = (MAPSIZE / 2) - 1;
+	p->sprite = SP_Create(sh, 25, WINSIZE / 2, WINSIZE / 2);
 
 	return p;
 }
 
-void PL_Destroy (player *p)
+void PL_Destroy (player_t *p)
 {
 	free(p);
 }
 
-boolean PL_Move(player *p, int dx, int dy)
+boolean PL_Move(player_t *p, int dx, int dy)
 {
 	int nx = p->x + dx;
 	int ny = p->y + dy;
@@ -43,7 +42,7 @@ boolean PL_Move(player *p, int dx, int dy)
 	return FALSE;
 }
 
-void PL_Handle(player *p, SDL_Event e)
+void PL_Handle(player_t *p, SDL_Event e)
 {
 	int result;
 
@@ -80,10 +79,7 @@ void PL_Handle(player *p, SDL_Event e)
 	}
 }
 
-void PL_Draw(player *p)
+void PL_Draw(player_t *p)
 {
-	p->sp->x = p->x;
-	p->sp->y = p->y;
-
-	SP_Draw(p->sp);
+	SP_Draw(p->sprite);
 }

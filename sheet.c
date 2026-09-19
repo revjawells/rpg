@@ -8,11 +8,11 @@
 #include "error.h"
 
 /* SH_Create - give a file name and the size of a tile */
-sheet *SH_Create(const char *file, int w, int h)
+sheet_t *SH_Create(const char *file, int w, int h)
 {
-	sheet *s;
+	sheet_t *s;
 
-	s = (sheet *) emalloc(sizeof (sheet));
+	s = (sheet_t *) emalloc(sizeof (sheet_t));
 
 	s->t = IF_Load(file);
 	s->twidth = w;
@@ -24,7 +24,7 @@ sheet *SH_Create(const char *file, int w, int h)
 	return s;
 }
 
-void SH_Destroy(sheet *s)
+void SH_Destroy(sheet_t *s)
 {
 	SDL_DestroyTexture(s->t);
 	free(s);

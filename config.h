@@ -7,6 +7,8 @@
 #define TILESIZE	15
 #define MAPSIZE		32
 
+#define WINSIZE		16
+
 #define DO_UP		SDLK_w
 #define DO_DOWN		SDLK_s
 #define DO_LEFT		SDLK_a

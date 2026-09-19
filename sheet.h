@@ -13,9 +13,9 @@ typedef struct {
 
 	/* tile size */
 	int twidth, theight;
-} sheet;
+} sheet_t;
 
-extern sheet *SH_Create(const char *, int, int);
-extern void SH_Destroy(sheet *);
+extern sheet_t *SH_Create(const char *, int, int);
+extern void SH_Destroy(sheet_t *);
 
 #endif /* SHEET_H */

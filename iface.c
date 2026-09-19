@@ -57,10 +57,8 @@ void IF_Render(void)
 	SDL_RenderPresent(ren);
 }
 
-void IF_Draw(sprite *s, int x, int y)
+void IF_Draw(sprite_t *s, int x, int y)
 {
-	/* don't actually draw, but add to a drawList */
-
 	static SDL_Rect src, dest;
 	int shrow, shcol;
 
@@ -75,5 +73,5 @@ void IF_Draw(sprite *s, int x, int y)
 	dest.x = x * TILESIZE;
 	dest.y = y * TILESIZE;
 
-	SDL_RenderCopy(ren, s->sh->t, &src, &dest);
+	SDL_RenderCopy(ren, s->sheet->t, &src, &dest);
 }

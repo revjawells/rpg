@@ -5,20 +5,20 @@
 #include "sheet.h"
 #include "sprite.h"
 
-#include "map.h"
 #include "player.h"
+#include "map.h"
 
 /* game variables */
-sheet	*sprites;
-player	*hero;
-map		*hut;
+sheet_t		*sprites;
+player_t	*hero;
+map_t		*hut;
 
 void setup(void)
 {
 	IF_Create();
 
 	sprites = SH_Create("assets/tiles.png", TILESIZE, TILESIZE);
-	hut = MP_Create("hut.map", sprites);
+	hut = MP_Create("assets/hut.map", sprites);
 	hero = PL_Create(sprites, hut);
 }
 
@@ -50,7 +50,7 @@ int main(int argc, char **argv)
 	
 		IF_Clear();
 
-		MP_Draw(hut);
+		MP_Draw(hut, hero->x, hero->y);
 		PL_Draw(hero);
 
 		IF_Render();

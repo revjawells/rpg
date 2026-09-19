@@ -14,6 +14,6 @@ extern void IF_Clear(void);
 extern void IF_Render(void);
 
 extern SDL_Texture *IF_Load(const char *);
-extern void IF_Draw(sprite *s, int, int);
+extern void IF_Draw(sprite_t *s, int, int);
 
 #endif

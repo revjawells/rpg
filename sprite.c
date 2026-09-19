@@ -8,13 +8,13 @@
 #include "sprite.h"
 #include "error.h"
 
-sprite *SP_Create(sheet *sh, int tile, int x, int y)
+sprite_t *SP_Create(sheet_t *sh, int tile, int x, int y)
 {
-	sprite *s;
+	sprite_t *s;
 
-	s = (sprite *) emalloc(sizeof (sprite));
+	s = (sprite_t *) emalloc(sizeof (sprite_t));
 
-	s->sh = sh;
+	s->sheet = sh;
 	s->tile = tile;
 	s->x = x;
 	s->y = y;
@@ -22,13 +22,12 @@ sprite *SP_Create(sheet *sh, int tile, int x, int y)
 	return s;
 }
 
-void SP_Draw(sprite *s)
+void SP_Draw(sprite_t *s)
 {
-	// was * TILESIZE for x and y
 	IF_Draw(s, s->x, s->y);
 }
 
-void SP_Destroy(sprite *s)
+void SP_Destroy(sprite_t *s)
 {
 	free(s);
 }

@@ -6,14 +6,14 @@
 #include "sheet.h"
 
 typedef struct {
-	sheet *sh;
+	sheet_t *sheet;
 	int tile;
 
 	int x, y;
-} sprite;
+} sprite_t;
 
-extern sprite *SP_Create(sheet *, int, int, int);
-extern void SP_Draw(sprite *);
-extern void SP_Destroy(sprite *);
+extern sprite_t *SP_Create(sheet_t *, int, int, int);
+extern void SP_Draw(sprite_t *);
+extern void SP_Destroy(sprite_t *);
 
 #endif /* SPRITE_H */

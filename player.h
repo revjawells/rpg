@@ -3,25 +3,25 @@
 
 #include <SDL2/SDL.h>
 
-#include "sheet.h"
-#include "map.h"
-#include "sprite.h"
 #include "boolean.h"
 
+#include "sheet.h"
+#include "sprite.h"
+#include "map.h"
+
 typedef struct {
-	sheet *sh;
-	sprite *sp;
-	map *m;
+	sheet_t *sheet;
+	sprite_t *sprite;
+	map_t *map;
 
 	int x, y;
+} player_t;
 
-} player;
+extern player_t *PL_Create(sheet_t *, map_t *);
+extern void PL_Destroy(player_t *p);
 
-extern player *PL_Create(sheet *, map *);
-extern void PL_Destroy(player *p);
-
-extern boolean PL_Move(player *, int, int);
-extern void PL_Handle(player *, SDL_Event);
-extern void PL_Draw(player *);
+extern boolean PL_Move(player_t *, int, int);
+extern void PL_Handle(player_t *, SDL_Event);
+extern void PL_Draw(player_t *);
 
 #endif /* PLAYER_H */

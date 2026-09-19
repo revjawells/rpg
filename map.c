@@ -6,17 +6,18 @@
 #include "error.h"
 
 #include "map.h"
+#include "player.h"
 
 #include "iface.h"
 #include "sheet.h"
 #include "sprite.h"
 
 /* not robust - add error checking */
-map *MP_Create(const char *file, sheet *sprites)
+map_t *MP_Create(const char *file, sheet_t *sprites)
 {
 	char buffer[BUFSIZE];
 
-	map *m = (map *) emalloc(sizeof(map));
+	map_t *m = (map_t *) emalloc(sizeof(map_t));
 
 	m->sprites = sprites;
 
@@ -57,7 +58,7 @@ map *MP_Create(const char *file, sheet *sprites)
 	return m;
 }
 
-void MP_Destroy(map *m)
+void MP_Destroy(map_t *m)
 {
 	for (int i = 0; i < m->size; i++)
 		free(m->tiles[i]);
@@ -66,10 +67,24 @@ void MP_Destroy(map *m)
 	free(m);
 }
 
-void MP_Draw(map *m)
+/* draw map centered around point */
+void MP_Draw(map_t *m, int px, int py)
 {
-	sprite *sp = SP_Create(m->sprites, 0, 0, 0);
+	sprite_t *sp = SP_Create(m->sprites, 0, 0, 0);
 
+	for (int row = -WINSIZE / 2; row < WINSIZE / 2; row++) {
+		sp->x = row + px;
+
+		for (int col = -WINSIZE / 2; col < WINSIZE / 2; col++) {
+			sp->y = col + py;
+			sp->tile = m->tiles[sp->y][sp->x];
+			SP_Draw(sp);
+		}
+	}
+
+/*
+ * OLD - draws entire map
+ *
 	for (int row = 0; row < m->size; row++) {
 		sp->x = row;
 
@@ -79,4 +94,5 @@ void MP_Draw(map *m)
 			SP_Draw(sp);
 		}
 	}
+*/
 }
