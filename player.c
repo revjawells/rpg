@@ -17,7 +17,7 @@ player_t *PL_Create(sheet_t *sh, map_t *m)
 	p->sheet = sh;
 	p->map = m;
 
-	p->x = p->y = (MAPSIZE / 2) - 1;
+	p->x = p->y = (m->size / 2) - 1;
 	p->sprite = SP_Create(sh, 25, WINSIZE / 2, WINSIZE / 2);
 
 	return p;
@@ -33,7 +33,7 @@ boolean PL_Move(player_t *p, int dx, int dy)
 	int nx = p->x + dx;
 	int ny = p->y + dy;
 
-	if (nx >= 0 && nx < MAPSIZE && ny >= 0 && ny < MAPSIZE) {
+	if (MP_IsInBounds(p->map, nx, ny)) {
 		p->x = nx;
 		p->y = ny;
 		return TRUE;
@@ -64,7 +64,7 @@ void PL_Handle(player_t *p, SDL_Event e)
 			break;
 
 		case DO_START:
-			p->x = p->y = MAPSIZE / 2;
+			p->x = p->y = p->map->size / 2;
 			break;
 
 		case DO_A:

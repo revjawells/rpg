@@ -16,7 +16,7 @@ $(EXE): $(OBJS)
 	$(CC) -o $@ $^ $(LDFLAGS) 
 
 tags:
-	ctags *.[ch]
+	ctags -R *.[ch]
 
 clean:
 	rm tags *.o *~ $(EXE)

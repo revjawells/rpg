@@ -72,27 +72,44 @@ void MP_Draw(map_t *m, int px, int py)
 {
 	sprite_t *sp = SP_Create(m->sprites, 0, 0, 0);
 
+	for (sp->y = 0; sp->y < WINSIZE; sp->y++) {
+		int i = sp->y + py - (WINSIZE / 2);
+
+		for (sp->x = 0; sp->x < WINSIZE; sp->x++) {
+			int j = sp->x + px - (WINSIZE / 2);
+
+			if (MP_IsInBounds(m, i, j)) {
+				sp->tile = m->tiles[i][j];
+				SP_Draw(sp);
+			} else {
+				// draw nothing
+			}
+		}
+	}
+	
+/*
 	for (int row = -WINSIZE / 2; row < WINSIZE / 2; row++) {
 		sp->x = row + px;
 
 		for (int col = -WINSIZE / 2; col < WINSIZE / 2; col++) {
 			sp->y = col + py;
-			sp->tile = m->tiles[sp->y][sp->x];
-			SP_Draw(sp);
-		}
-	}
 
-/*
- * OLD - draws entire map
- *
-	for (int row = 0; row < m->size; row++) {
-		sp->x = row;
-
-		for (int col = 0; col < m->size; col++) {
-			sp->tile = m->tiles[col][row];		
-			sp->y = col;
-			SP_Draw(sp);
+			if (MP_IsInBounds(m, sp->x, sp->y)) {
+				sp->tile = m->tiles[sp->y][sp->x];
+				SP_Draw(sp);
+			} else {
+				// draw nothing
+			}
 		}
 	}
 */
+}
+
+boolean MP_IsInBounds(map_t *m, int x, int y)
+{
+	if (m != NULL) 
+		return (x >= 0 && x < m->size
+				&& y >= 0 && y < m->size);
+	else
+		return FALSE;
 }

@@ -1,13 +1,16 @@
-#define WIDTH		800
-#define HEIGHT		600
+// #define WIDTH		800
+// #define HEIGHT		600
 
 #define BUFSIZE		256
 
 #define SHEETSIZE	32
 #define TILESIZE	15
-#define MAPSIZE		32
 
 #define WINSIZE		16
+
+#define SCALE		2
+#define WIDTH		WINSIZE * TILESIZE * SCALE
+#define HEIGHT		WINSIZE * TILESIZE * SCALE
 
 #define DO_UP		SDLK_w
 #define DO_DOWN		SDLK_s

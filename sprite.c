@@ -24,7 +24,8 @@ sprite_t *SP_Create(sheet_t *sh, int tile, int x, int y)
 
 void SP_Draw(sprite_t *s)
 {
-	IF_Draw(s, s->x, s->y);
+	if (s != NULL)
+		IF_Draw(s, s->x, s->y);
 }
 
 void SP_Destroy(sprite_t *s)
