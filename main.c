@@ -1,4 +1,5 @@
 #include "config.h"
+#include "error.h"
 
 #include "iface.h"
 #include "boolean.h"
@@ -13,8 +14,10 @@ sheet_t		*sprites;
 player_t	*hero;
 map_t		*map;
 
-void setup(void)
+void setup(char *name)
 {
+	setprogname(name);
+
 	IF_Create();
 
 	sprites = SH_Create("assets/tiles.png", TILESIZE, TILESIZE);
@@ -34,7 +37,7 @@ int main(int argc, char **argv)
 {
 	boolean quit = FALSE;
 
-	setup();
+	setup(argv[0]);
 	atexit(cleanup);
 
 	while (!quit) {

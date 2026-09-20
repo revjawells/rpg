@@ -26,9 +26,7 @@ map_t *MP_Create(const char *file, sheet_t *sprites)
 	m->sprites = sprites;
 
 	/* open file */
-	FILE *fp = fopen(file, "r");
-	if (fp == NULL)
-		error("MP_Create: fopen failed\n");
+	FILE *fp = efopen(file, "r");
 
 	/* read size */
 	fgets(buffer, BUFSIZE, fp);
@@ -57,7 +55,7 @@ map_t *MP_Create(const char *file, sheet_t *sprites)
 	}
 
 	/* close file */
-	fclose(fp);
+	efclose(fp);
 
 	return m;
 }

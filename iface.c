@@ -13,8 +13,11 @@ SDL_Renderer *ren;
 void IF_Create(void)
 {
 	/* initialize SDL and its components */
-	VTRY(SDL_Init(SDL_INIT_EVERYTHING), 0);
-	VTRY((IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG), IMG_INIT_PNG);
+	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
+		eprintf(SDL_GetError());
+
+	if ((IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG) != IMG_INIT_PNG)
+		eprintf(IMG_GetError());
 
 	/* create a window and renderer */
 	SDL_CreateWindowAndRenderer(WIDTH, HEIGHT, 0, &win, &ren);
@@ -36,7 +39,7 @@ SDL_Texture *IF_Load(const char *file)
    
    t = IMG_LoadTexture(ren, file);
 	if (t == NULL) {
-		error(IMG_GetError());
+		eprintf(IMG_GetError());
 	}
 
    return t;

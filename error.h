@@ -1,12 +1,16 @@
 #ifndef ERROR_H
 #define ERROR_H
 
+#include <stdio.h>
 #include <stddef.h>
 
-#define TRY(x)	if((x) == NULL) error(SDL_GetError())
-#define VTRY(x,y)	if((x) != (y)) error(SDL_GetError())
+extern void eprintf (const char* fmt, ...);
+extern void weprintf (const char* fmt, ...);
+extern char* estrdup (const char* s);
+extern FILE* efopen (const char* fn, const char *mode);
+extern void efclose (FILE* fp);
+extern void setprogname (const char* str);
+extern char* progname (void);
+extern void* emalloc (size_t n);
 
-extern void error(const char *);
-extern void *emalloc(size_t);
-
-#endif
+#endif /* ERROR_H */
