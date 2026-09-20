@@ -42,7 +42,7 @@ int main(int argc, char **argv)
 
 	while (!quit) {
 		SDL_Event e;
-		boolean dirty;
+		boolean dirty = TRUE;
 
 		while (SDL_PollEvent(&e)) {
 			if (e.type == SDL_QUIT) {
@@ -53,12 +53,13 @@ int main(int argc, char **argv)
 		} 
 	
 		if (dirty) {
-		IF_Clear();
-
-		MP_Draw(map, hero->x, hero->y);
-		PL_Draw(hero);
-
-		IF_Render();
+			IF_Clear();
+	
+			MP_Draw(map, hero->x, hero->y);
+			PL_Draw(hero);
+			IF_DrawStatus(hero);
+	
+			IF_Render();
 		}
 	} 
 

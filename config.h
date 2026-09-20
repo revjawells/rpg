@@ -1,12 +1,10 @@
-// #define WIDTH		800
-// #define HEIGHT		600
-
 #define BUFSIZE		256
 
 #define SHEETSIZE	32
 #define TILESIZE	15
 
 #define WINSIZE		16
+#define FONTSIZE	14
 
 #define SCALE		2
 #define WIDTH		WINSIZE * TILESIZE * SCALE
