@@ -21,13 +21,12 @@ typedef struct {
 	int level;
 	int hp, hpmax;
 	int mp, mpmax;
-
 	int gold;
 	int xp;
 
 } player_t;
 
-extern player_t *PL_Create(sheet_t *, map_t *);
+extern player_t *PL_Create(const char *, sheet_t *, map_t *);
 extern void PL_Destroy(player_t *p);
 
 extern boolean PL_Move(player_t *, int, int);

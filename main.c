@@ -22,7 +22,7 @@ void setup(char *name)
 
 	sprites = SH_Create("assets/tiles.png", TILESIZE, TILESIZE);
 	map = MP_Create("assets/town.map", sprites);
-	hero = PL_Create(sprites, map);
+	hero = PL_Create("Erdrick", sprites, map);
 }
 
 void cleanup(void)

@@ -14,7 +14,7 @@
 
 extern tiledata_ent tiledata[];
 
-player_t *PL_Create(sheet_t *sh, map_t *m)
+player_t *PL_Create(const char *name, sheet_t *sh, map_t *m)
 {
 	player_t *p = (player_t *) emalloc(sizeof(player_t));
 
@@ -23,6 +23,14 @@ player_t *PL_Create(sheet_t *sh, map_t *m)
 
 	p->x = p->y = (m->size / 2) - 1;
 	p->sprite = SP_Create(sh, 25, WINSIZE / 2, WINSIZE / 2);
+
+	p->name = estrdup(name);
+
+	p->level = 1;
+	p->hp = p-> hpmax = 15;
+	p->mp = p-> mpmax = 0;
+	p->gold = 0;
+	p->xp = 0;
 
 	return p;
 }
