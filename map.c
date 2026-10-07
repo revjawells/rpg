@@ -82,10 +82,12 @@ void MP_Draw(map_t *m, int px, int py)
 
 			if (MP_IsInBounds(m, i, j)) {
 				sp->tile = tiledata[m->tiles[i][j]].tile;
-				SP_Draw(sp);
 			} else {
-				// draw nothing
+				// fill map background
+				sp->tile = tiledata[m->tiles[0][0]].tile;
 			}
+
+			SP_Draw(sp);
 		}
 	}
 }

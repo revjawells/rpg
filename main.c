@@ -49,6 +49,7 @@ int main(int argc, char **argv)
 				quit = TRUE;
 			} else if (e.type == SDL_KEYDOWN) {
 				dirty = PL_Handle(hero, e);
+				IF_ResetTicks();
 			}
 		} 
 	

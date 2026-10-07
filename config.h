@@ -10,6 +10,8 @@
 #define WIDTH		WINSIZE * TILESIZE * SCALE
 #define HEIGHT		WINSIZE * TILESIZE * SCALE
 
+#define STATUS_DELAY	1000
+
 #define DO_UP		SDLK_w
 #define DO_DOWN		SDLK_s
 #define DO_LEFT		SDLK_a

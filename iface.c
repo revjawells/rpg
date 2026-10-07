@@ -18,6 +18,8 @@ TTF_Font *font;
 SDL_Color fgcolor = {0xFF, 0xFF, 0xFF};
 SDL_Color bgcolor = {0x00, 0x00, 0x00};
 
+unsigned ticks;
+
 void IF_Create(void)
 {
 	/* initialize SDL and its components */
@@ -37,6 +39,8 @@ void IF_Create(void)
 	/* create a window and renderer */
 	SDL_CreateWindowAndRenderer(WIDTH, HEIGHT, 0, &win, &ren);
 	SDL_SetRenderDrawColor(ren, 0x00, 0x00, 0x00, 0x00);
+
+	ticks = SDL_GetTicks();
 }
 
 void IF_Destroy(void)
@@ -94,6 +98,11 @@ void IF_Draw(sprite_t *s, int x, int y)
 	}
 }
 
+void IF_ResetTicks()
+{
+	ticks = SDL_GetTicks();
+}
+
 void IF_DrawStatus(player_t *p)
 {
 	SDL_Surface *surf;
@@ -103,6 +112,9 @@ void IF_DrawStatus(player_t *p)
 	int w, h;
 
 	char buffer[BUFSIZE];
+
+	if (SDL_GetTicks() - ticks < STATUS_DELAY)
+		return;
 
 	/* render data */
 	snprintf(buffer, BUFSIZE,

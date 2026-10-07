@@ -21,7 +21,9 @@ player_t *PL_Create(const char *name, sheet_t *sh, map_t *m)
 	p->sheet = sh;
 	p->map = m;
 
-	p->x = p->y = (m->size / 2) - 1;
+//	p->x = p->y = (m->size / 2) - 1;
+	p->x = 1;
+	p->y = 15;
 	p->sprite = SP_Create(sh, 25, WINSIZE / 2, WINSIZE / 2);
 
 	p->name = estrdup(name);

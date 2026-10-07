@@ -15,6 +15,8 @@ extern void IF_Destroy(void);
 extern void IF_Clear(void);
 extern void IF_Render(void);
 
+extern void IF_ResetTicks(void);
+
 extern void IF_DrawStatus(player_t *);
 
 extern SDL_Texture *IF_Load(const char *);
