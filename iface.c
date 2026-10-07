@@ -135,3 +135,33 @@ void IF_DrawStatus(player_t *p)
 	SDL_FreeSurface(surf);
 	SDL_DestroyTexture(status);
 }
+
+void IF_DrawMenu(void)
+{
+	SDL_Surface *surf;
+	SDL_Texture *status;
+	
+	SDL_Rect dest;
+	int w, h;
+
+	char buffer[BUFSIZE];
+
+	/* render data */
+	snprintf(buffer, BUFSIZE,
+		"   -COMMAND-\n TALK    SPELL\n STATUS  ITEM\n STAIRS  DOOR\n SEARCH  TAKE");
+
+	/* render surface */
+	surf = TTF_RenderUTF8_Shaded_Wrapped(font, buffer, fgcolor, bgcolor, 0);
+	status = SDL_CreateTextureFromSurface(ren, surf);
+
+	SDL_QueryTexture(status, NULL, NULL, &w, &h);
+	dest.x = 32 + (TILESIZE * 7);
+	dest.y = 32;
+	dest.w = w;
+	dest.h = h;
+
+	SDL_RenderCopy(ren, status, NULL, &dest);
+
+	SDL_FreeSurface(surf);
+	SDL_DestroyTexture(status);
+}

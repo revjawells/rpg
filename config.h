@@ -1,4 +1,4 @@
-#define BUFSIZE		256
+#define BUFSIZE		512	
 
 #define SHEETSIZE	32
 #define TILESIZE	15

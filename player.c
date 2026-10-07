@@ -11,6 +11,7 @@
 #include "error.h"
 
 #include "tiledata.h"
+#include "mode.h"
 
 extern tiledata_ent tiledata[];
 
@@ -21,7 +22,8 @@ player_t *PL_Create(const char *name, sheet_t *sh, map_t *m)
 	p->sheet = sh;
 	p->map = m;
 
-//	p->x = p->y = (m->size / 2) - 1;
+	p->mode = WALKABOUT;
+
 	p->x = 1;
 	p->y = 15;
 	p->sprite = SP_Create(sh, 25, WINSIZE / 2, WINSIZE / 2);
@@ -46,6 +48,9 @@ boolean PL_Move(player_t *p, int dx, int dy)
 {
 	int nx = p->x + dx;
 	int ny = p->y + dy;
+
+	if (p->mode != WALKABOUT)
+		return FALSE;
 
 	if (MP_IsInBounds(p->map, nx, ny)
 		&& tiledata[p->map->tiles[ny][nx]].flags == PASSABLE) {
@@ -84,12 +89,15 @@ boolean PL_Handle(player_t *p, SDL_Event e)
 			result = PL_Move(p, 0, +1);
 			break;
 
-		case DO_START:
-			p->x = p->y = p->map->size / 2;
+		case DO_A:
+			p->mode = COMMAND;
 			break;
 
-		case DO_A:
 		case DO_B:
+			p->mode = WALKABOUT;
+			break;
+
+		case DO_START:
 		case DO_SELECT:
 		default:
 			break;

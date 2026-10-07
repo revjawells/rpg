@@ -9,6 +9,8 @@
 #include "player.h"
 #include "map.h"
 
+#include "mode.h"
+
 /* game variables */
 sheet_t		*sprites;
 player_t	*hero;
@@ -59,6 +61,9 @@ int main(int argc, char **argv)
 			MP_Draw(map, hero->x, hero->y);
 			PL_Draw(hero);
 			IF_DrawStatus(hero);
+
+			if (hero->mode == COMMAND)
+				IF_DrawMenu();
 	
 			IF_Render();
 		}

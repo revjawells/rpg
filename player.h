@@ -9,10 +9,14 @@
 #include "sprite.h"
 #include "map.h"
 
+#include "mode.h"
+
 typedef struct {
 	sheet_t *sheet;
 	sprite_t *sprite;
 	map_t *map;
+
+	modes_t mode;
 
 	int x, y;
 
@@ -23,7 +27,6 @@ typedef struct {
 	int mp, mpmax;
 	int gold;
 	int xp;
-
 } player_t;
 
 extern player_t *PL_Create(const char *, sheet_t *, map_t *);
