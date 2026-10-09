@@ -18,7 +18,7 @@ extern void IF_Render(void);
 extern void IF_ResetTicks(void);
 
 extern void IF_DrawStatus(player_t *);
-extern void IF_DrawMenu(void);
+extern void IF_DrawMenu(player_t *p);
 
 extern SDL_Texture *IF_Load(const char *);
 extern void IF_Draw(sprite_t *s, int, int);

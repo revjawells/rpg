@@ -63,7 +63,7 @@ int main(int argc, char **argv)
 			IF_DrawStatus(hero);
 
 			if (hero->mode == COMMAND)
-				IF_DrawMenu();
+				IF_DrawMenu(hero);
 	
 			IF_Render();
 		}

@@ -136,7 +136,7 @@ void IF_DrawStatus(player_t *p)
 	SDL_DestroyTexture(status);
 }
 
-void IF_DrawMenu(void)
+void IF_DrawMenu(player_t *p)
 {
 	SDL_Surface *surf;
 	SDL_Texture *status;
@@ -148,7 +148,19 @@ void IF_DrawMenu(void)
 
 	/* render data */
 	snprintf(buffer, BUFSIZE,
-		"   -COMMAND-\n TALK    SPELL\n STATUS  ITEM\n STAIRS  DOOR\n SEARCH  TAKE");
+		"   -COMMAND-\n TALK    SPELL \n STATUS  ITEM  \n STAIRS  DOOR  \n SEARCH  TAKE  ");
+//                 1          2          3          4          5          6         7
+//       012345678901 234567890123456 7890123456789 0123456789 0123456789 0123456789 0123456789
+
+	/* draw cursor */
+/*
+13 21
+29 37
+45 53
+60 68
+*/
+
+	buffer[(13 + 16 * p->cy) + (8 * p->cx)] = '>';
 
 	/* render surface */
 	surf = TTF_RenderUTF8_Shaded_Wrapped(font, buffer, fgcolor, bgcolor, 0);

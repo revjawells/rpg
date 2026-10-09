@@ -24,6 +24,9 @@ player_t *PL_Create(const char *name, sheet_t *sh, map_t *m)
 
 	p->mode = WALKABOUT;
 
+	/* command cursor position */
+	p->cx = p->cy = 0;
+
 	p->x = 1;
 	p->y = 15;
 	p->sprite = SP_Create(sh, 25, WINSIZE / 2, WINSIZE / 2);
@@ -49,20 +52,32 @@ boolean PL_Move(player_t *p, int dx, int dy)
 	int nx = p->x + dx;
 	int ny = p->y + dy;
 
-	if (p->mode != WALKABOUT)
+	if (p->mode == COMMAND) {
+		nx = p->cx + dx;
+		ny = p->cy + dy;
+
+		if (nx >= 0 && nx < 2 && ny >= 0 && ny < 4) {
+			p->cx = nx;
+			p->cy = ny;
+		}
+
 		return FALSE;
+	} else {
+		/* p->mode == WALKABOUT */
 
-	if (MP_IsInBounds(p->map, nx, ny)
-		&& tiledata[p->map->tiles[ny][nx]].flags == PASSABLE) {
-		p->x = nx;
-		p->y = ny;
-
+    	if (MP_IsInBounds(p->map, nx, ny)
+    		&& tiledata[p->map->tiles[ny][nx]].flags == PASSABLE) {
+    		p->x = nx;
+    		p->y = ny;
+    
 #ifdef DEBUG
-		int x = p->map->tiles[ny][nx];
-		printf("TILE #%d\t#%d\n", x, tiledata[x].tile);
+    		int x = p->map->tiles[ny][nx];
+    		printf("TILE #%d\t#%d\n", x, tiledata[x].tile);
 #endif
-
-		return TRUE;
+    
+    		return TRUE;
+    	}
+		return FALSE;
 	}
 
 	return FALSE;
@@ -90,7 +105,17 @@ boolean PL_Handle(player_t *p, SDL_Event e)
 			break;
 
 		case DO_A:
-			p->mode = COMMAND;
+			if (p->mode == WALKABOUT) {
+			    p->mode = COMMAND;
+			    p->cx = p->cy = 0;
+			} else {
+				/* dispatch command */
+
+#ifdef DEBUG
+				printf("COMMAND: %d %d\n", p->cx, p->cy);	
+#endif
+			}
+
 			break;
 
 		case DO_B:

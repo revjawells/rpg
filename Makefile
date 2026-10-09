@@ -1,7 +1,7 @@
 CC = cc
 LIB = -lSDL2 -lSDL2_image -lSDL2_ttf
 
-DEBUG = -g
+DEBUG = -g 
 CFLAGS = $(DEBUG) -Wall -ansi -pedantic -std=c99
 LDFLAGS = $(LIB)
 

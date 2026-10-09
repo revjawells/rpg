@@ -19,6 +19,7 @@ typedef struct {
 	modes_t mode;
 
 	int x, y;
+	int cx, cy;
 
 	char *name;
 
